@@ -1,103 +1,94 @@
-from employee import PermanentEmployee, ContractEmployee
+from employee import PermanentEmployee,ContractEmployee,InternEmployee
 
 class EmployeeManager:
     def __init__(self):
         self.employees = {}
 
-    def add_employee(self):
-        try:
-            emp_id = int(input("Enter Employee ID   : "))
-        except ValueError:
-            print("Invalid ID. Please enter a number.")
-            return
+    def _create_employee(self,empid,name,age,dept,mail,number,exp,salary,emp_type):
+        if emp_type==1:
+            return PermanentEmployee(empid,name,age,dept,mail,number,exp,salary)
+        elif emp_type==2:
+            return ContractEmployee(empid,name,age,dept,mail,number,exp,salary)
+        elif emp_type==3:
+            return InternEmployee(empid,name,age,dept,mail,number,exp,salary)
+        else:
+            return None
 
-        if emp_id in self.employees:
+    def add_employee(self):
+        empid=int(input("Enter Employee ID   : "))
+
+        if empid in self.employees:
             print("Employee ID already exists.")
             return
-
-        name = input("Enter Name          : ")
         
-        try:
-            age = int(input("Enter Age           : "))
-            exp = int(input("Enter Experience (years): "))
-            salary = float(input("Enter Salary (Rs.)  : "))
-        except ValueError:
-            print("Invalid input. Age, experience, and salary must be numbers.")
-            return
+        name=input("Enter Name: ")
+        age=int(input("Enter Age: "))
+        exp=int(input("Enter Experience (years): "))
+        salary=float(input("Enter Salary (Rs.): "))
+        dept=input("Enter Department: ")
+        mail=input("Enter Email: ")
+        number=int(input("Enter number: "))
 
-        dept = input("Enter Department    : ")
-        mail = input("Enter Email         : ")
+        if number!=10:
+            return "Invalid, Enter 10 digits."
+        
+        print("Employee Type: 1.Permanent  2.Contract  3.Intern")
 
-        print("Employee Type: 1. Permanent  2. Contract")
-        emp_choice = input("Enter choice (1/2)  : ")
+        emp_type=input("Enter choice (1/2/3): ")
 
-        if emp_choice == "1":
-            emp = PermanentEmployee(emp_id, name, age, dept, mail, exp, salary)
-        elif emp_choice == "2":
-            emp = ContractEmployee(emp_id, name, age, dept, mail, exp, salary)
-        else:
+        emp=self._create_employee(empid,name,age,dept,mail,number,exp,salary,emp_type)
+        if emp is None:
             print("Invalid employee type.")
             return
-
-        self.employees[emp_id] = emp
+        self.employees[empid]=emp
         print("Employee added successfully.")
 
     def view_employee(self):
         if not self.employees:
-            print("No employee records found.")
+            print("\nNo employee records found.")
             return
         for employee in self.employees.values():
             employee.display_details()
-            print("Bonus      : Rs.", employee.calculate_bonus())
 
     def search_employee(self):
-        try:
-            emp_id = int(input("Enter Employee ID to search: "))
-        except ValueError:
-            print("Invalid ID.")
-            return
-
-        if emp_id in self.employees:
-            self.employees[emp_id].display_details()
-            print("Bonus          : Rs.", self.employees[emp_id].calculate_bonus())
+        empid=int(input("Enter Employee ID: "))
+        if empid in self.employees:
+            self.employees[empid].display_details()
         else:
             print("Employee not found.")
 
     def update_employee(self):
-        try:
-            emp_id = int(input("Enter Employee ID to update: "))
-        except ValueError:
-            print("Invalid ID.")
-            return
-
-        if emp_id not in self.employees:
+        empid=int(input("Enter Employee ID: "))
+        if empid not in self.employees:
             print("Employee not found.")
             return
-
-        emp = self.employees[emp_id]
-        new_name = input("Enter New Name   : ")
-        try:
-            new_salary = float(input("Enter New Salary : "))
-        except ValueError:
-            print("Invalid salary.")
-            return
-
+        emp=self.employees[empid]
+        new_name=input("Enter New Name: ")
+        new_dept=input("Enter new Department: ")
+        new_salary = float(input("Enter New Salary: "))
         emp.set_name(new_name)
+        emp.set_dept(new_dept)
         emp.set_salary(new_salary)
         print("Employee updated successfully.")
 
     def delete_employee(self):
-        try:
-            emp_id = int(input("Enter Employee ID to delete: "))
-        except ValueError:
-            print("Invalid ID.")
-            return
-
-        if emp_id in self.employees:
-            del self.employees[emp_id]
+        empid=int(input("Enter Employee ID: "))
+        if empid in self.employees:
+            del self.employees[empid]
             print("Employee deleted successfully.")
         else:
             print("Employee not found.")
+
+    def heighest_salary(self):
+        if not self.employees:
+            print("No Records Found")
+            return
+        high=None
+        for emp in self.employees.values():
+            if high is None or self.get_salary()>high.get_salary():
+                high=emp
+            print("\nHighest Salary Employee")
+            high.display_details()
 
     def save_to_file(self):
         with open("data.txt", "w") as file:
