@@ -67,7 +67,7 @@ class PermanentEmployee(Employee):
         super().__init__(empid, name, age, dept, mail, exp, salary, "Permanent")
 
     def calculate_bonus(self):
-        return self.get_salary() * 0.10
+        return self.get_salary()*0.10
 
 
 class ContractEmployee(Employee):
@@ -75,4 +75,4 @@ class ContractEmployee(Employee):
         super().__init__(empid, name, age, dept, mail, exp, salary, "Contract")
 
     def calculate_bonus(self):
-        return self.get_salary() * 0.05
+        return self.get_salary()*0.05
