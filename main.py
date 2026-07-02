@@ -4,6 +4,8 @@ from report import Report
 from employee_manager import EmployeeManager
 
 manager=EmployeeManager()
+report=Report(manager.employees)
+file=FileHandler()
 
 while True:
     print("\nEMPLOYEE MANAGEMENT SYSTEM")
@@ -30,11 +32,11 @@ while True:
     elif choice=="5":
         manager.delete_employee()
     elif choice=="6":
-        manager.highest_salary()
+        report.highest_salary()
     elif choice=="7":
-        manager.experienced_employee()
+        report.experienced_employee()
     elif choice=="8":
-        manager.save_to_file()
+        file.save_to_file(manager.employees)
     elif choice=="9":
         print("\nThank you for using Employee Management System.")
         break

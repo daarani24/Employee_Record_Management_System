@@ -27,14 +27,14 @@ class EmployeeManager:
         salary=float(input("Enter Salary (Rs.): "))
         dept=input("Enter Department: ")
         mail=input("Enter Email: ")
-        number=int(input("Enter number: "))
+        number=input("Enter number: ")
 
-        if number!=10:
+        if len(number)!=10:
             return "Invalid, Enter 10 digits."
         
         print("Employee Type: 1.Permanent  2.Contract  3.Intern")
 
-        emp_type=input("Enter choice (1/2/3): ")
+        emp_type=int(input("Enter choice (1/2/3): "))
 
         emp=self._create_employee(empid,name,age,dept,mail,number,exp,salary,emp_type)
         if emp is None:
@@ -78,29 +78,3 @@ class EmployeeManager:
             print("Employee deleted successfully.")
         else:
             print("Employee not found.")
-
-    def heighest_salary(self):
-        if not self.employees:
-            print("No Records Found")
-            return
-        high=None
-        for emp in self.employees.values():
-            if high is None or self.get_salary()>high.get_salary():
-                high=emp
-            print("\nHighest Salary Employee")
-            high.display_details()
-
-    def save_to_file(self):
-        with open("data.txt", "w") as file:
-            for emp in self.employees.values():
-                file.write(
-                    f"{emp.get_emp_id()},"
-                    f"{emp.get_name()},"
-                    f"{emp.get_age()},"
-                    f"{emp.get_dept()},"
-                    f"{emp.get_mail()},"
-                    f"{emp.get_exp()},"
-                    f"{emp.get_salary()},"
-                    f"{emp.get_emp_type()}\n"
-                )
-        print("Data saved to data.txt successfully.")

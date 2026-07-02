@@ -1,1 +1,1 @@
-
+101,ria,20,AI,aji32,1,600000.0,Permanent

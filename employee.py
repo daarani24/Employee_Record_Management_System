@@ -56,8 +56,8 @@ class Employee(ABC):
         print("Number     :",self.__number)
         print("Experience :",self.__exp, "years")
         print("Salary     : Rs.",self.__salary)
-        print(f"Bonus     : Rs.{self.calculate_bonus():,.2f}")
-        print(f"Work Mode :{self.work_mode()}")
+        print(f"Bonus      : Rs.{self.calculate_bonus():,.2f}")
+        print(f"Work Mode  :{self.work_mode()}")
     
 class PermanentEmployee(Employee):
     def __init__(self,empid,name,age,dept,mail,number,exp,salary):
@@ -85,4 +85,3 @@ class InternEmployee(Employee):
         return self.get_salary*0.05
     def work_mode(self):
         return "Training + Office"
-    
