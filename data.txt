@@ -1,5 +1,2 @@
-101,siva,29,AI,siva343,2,30000.0,Contract
-105,krish,30,ML,kris98,2,400000.0,Contract
-103,ram,36,DS,ram@34,3,500000.0,Contract
-104,Durga,25,AIML,durga@159,1,30000.0,Intern
-102,Ria,27,IT,ria@44,1,20000.0,Permanent
+101,siva,29,AI,siva343,1,50000.0,Contract
+102,ria,30,ML,ria321,2,80000.0,Permanent

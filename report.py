@@ -6,12 +6,13 @@ class Report:
        if not self.employees:
             print("No Records Found")
             return
-       high=None
+       
+       highest = None
        for emp in self.employees.values():
-           if high is None or self.get_salary()>high.get_salary():
-               high=emp
+           if highest is None or emp.get_salary() > highest.get_salary():
+               highest = emp
        print("\nHighest Salary Employee")
-       high.display_details()
+       highest.display_details()
 
     def experienced_employee(self):
         exp=int(input("Enter Experience: "))
